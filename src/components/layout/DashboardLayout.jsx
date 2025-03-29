@@ -22,12 +22,14 @@ const DashboardLayout = ({ children }) => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   
-  const NavItem = ({ icon, label, link }) => (
+  const NavItem = ({ icon, label, link, isActive }) => (
     <a 
       href={link}
-      className="flex items-center p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-finance-primary"
+      className={`flex items-center p-2 rounded-lg ${
+        isActive ? 'bg-blue-50 text-finance-primary' : 'hover:bg-gray-100 text-gray-700 hover:text-finance-primary'
+      }`}
     >
-      <div className="mr-3 text-gray-500">{icon}</div>
+      <div className={`mr-3 ${isActive ? 'text-finance-primary' : 'text-gray-500'}`}>{icon}</div>
       <span>{label}</span>
     </a>
   );
@@ -40,6 +42,9 @@ const DashboardLayout = ({ children }) => {
     localStorage.removeItem('user');
     navigate('/login');
   };
+
+  // Determine current route for active nav highlighting
+  const pathname = window.location.pathname;
   
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -66,12 +71,42 @@ const DashboardLayout = ({ children }) => {
           
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-            <NavItem icon={<LayoutDashboard size={20} />} label="Dashboard" link="/dashboard" />
-            <NavItem icon={<Briefcase size={20} />} label="Portfolio" link="/portfolio" />
-            <NavItem icon={<LineChart size={20} />} label="Market Data" link="/market" />
-            <NavItem icon={<Calculator size={20} />} label="Tax Calculator" link="/tax" />
-            <NavItem icon={<BookOpen size={20} />} label="Learning" link="/learning" />
-            <NavItem icon={<MessageSquare size={20} />} label="AI Advisor" link="/advisor" />
+            <NavItem 
+              icon={<LayoutDashboard size={20} />} 
+              label="Dashboard" 
+              link="/dashboard" 
+              isActive={pathname === '/dashboard'}
+            />
+            <NavItem 
+              icon={<Briefcase size={20} />} 
+              label="Portfolio" 
+              link="/portfolio"
+              isActive={pathname === '/portfolio'} 
+            />
+            <NavItem 
+              icon={<LineChart size={20} />} 
+              label="Market Data" 
+              link="/market"
+              isActive={pathname === '/market'} 
+            />
+            <NavItem 
+              icon={<Calculator size={20} />} 
+              label="Tax Calculator" 
+              link="/tax"
+              isActive={pathname === '/tax'} 
+            />
+            <NavItem 
+              icon={<BookOpen size={20} />} 
+              label="Learning" 
+              link="/learning"
+              isActive={pathname === '/learning'} 
+            />
+            <NavItem 
+              icon={<MessageSquare size={20} />} 
+              label="AI Advisor" 
+              link="/advisor"
+              isActive={pathname === '/advisor'} 
+            />
           </nav>
           
           {/* User area */}
@@ -92,7 +127,14 @@ const DashboardLayout = ({ children }) => {
       <div className={`flex-1 transition-all duration-300 ease-in-out ${isMobile ? "ml-0" : "ml-64"}`}>
         {/* Header */}
         <header className="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
+          <h1 className="text-xl font-semibold text-gray-800">
+            {pathname === '/dashboard' && 'Dashboard'}
+            {pathname === '/advisor' && 'AI Advisor'}
+            {pathname === '/portfolio' && 'Portfolio'}
+            {pathname === '/market' && 'Market Data'}
+            {pathname === '/tax' && 'Tax Calculator'}
+            {pathname === '/learning' && 'Learning Resources'}
+          </h1>
           <div className="flex items-center space-x-4">
             <button className="p-2 rounded-full hover:bg-gray-100">
               <Bell size={20} />

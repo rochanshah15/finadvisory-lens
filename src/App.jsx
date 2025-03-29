@@ -13,7 +13,15 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Advisor from "./pages/Advisor";
 
-const queryClient = new QueryClient();
+// Create a new query client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+    },
+  },
+});
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
@@ -30,6 +38,9 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check if user is logged in
+    const user = localStorage.getItem('user');
+    
     // Simulate initial loading
     setTimeout(() => {
       setLoading(false);
