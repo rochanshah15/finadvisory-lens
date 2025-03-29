@@ -1,12 +1,13 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
 	darkMode: ["class"],
 	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
+		"./pages/**/*.{ts,tsx,js,jsx}",
+		"./components/**/*.{ts,tsx,js,jsx}",
+		"./app/**/*.{ts,tsx,js,jsx}",
+		"./src/**/*.{ts,tsx,js,jsx}",
 	],
 	prefix: "",
 	theme: {
@@ -61,6 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Financial dashboard colors
+				finance: {
+					primary: '#0A3D62', // Deep blue
+					secondary: '#3498DB', // Light blue
+					accent: '#2ECC71', // Green for positive change
+					warning: '#F39C12', // Orange for alerts
+					danger: '#E74C3C', // Red for negative change
+					light: '#F8F9FA', // Light background
+					dark: '#2C3E50', // Dark text color
 				}
 			},
 			borderRadius: {
